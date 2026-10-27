@@ -1,6 +1,8 @@
-# CLAUDE.md
+# Seenery
 
-## Commands
+Seenery is an experimental project to solve the "semantic search over my photos" problem. The scope is not fully defined and could range from just testing the Google Photos API, building a small layer on top, testing other products and understanding how they work, to evaluating various building blocks for such a solution.
+
+# Commands
 
 ```bash
 uv sync --dev                        # install all dependencies
@@ -18,7 +20,7 @@ uv run mypy                          # type-check (strict, src/ and tests/)
 uv run seenery --help                 # run the CLI
 ```
 
-## Project structure
+# Project structure
 
 `src/seenery/` follows a layered structure:
 
