@@ -1,5 +1,5 @@
 [project]
-name = "lacuna"
+name = "seenery"
 version = "0.1.0"
 description = "TODO: project description"
 authors = [
@@ -9,6 +9,7 @@ requires-python = ">=3.14"
 dependencies = [
     "httpx>=0.28.1",
     "loguru>=0.7.3",
+    "mypy>=1.11",
     "polars[all]>=1.40.1",
     "pydantic>=2.13.4",
     "pydantic-settings>=2.14.1",
@@ -18,7 +19,7 @@ dependencies = [
 ]
 
 [project.scripts]
-lacuna = "lacuna:main"
+seenery = "seenery:main"
 
 [build-system]
 requires = ["uv_build>=0.9.7,<0.10.0"]
@@ -47,10 +48,10 @@ ignore = ["E501"]
 extend-immutable-calls = ["typer.Argument", "typer.Option"]
 
 [tool.ruff.lint.per-file-ignores]
-"src/lacuna/__init__.py" = ["E402"]
+"src/seenery/__init__.py" = ["E402"]
 
 [tool.ruff.lint.isort]
-known-first-party = ["lacuna"]
+known-first-party = ["seenery"]
 
 [tool.mypy]
 python_version = "3.14"
@@ -60,8 +61,8 @@ files = ["src", "tests"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 asyncio_mode = "auto"
-addopts = "--cov=lacuna --cov-report=term-missing -q"
+addopts = "--cov=seenery --cov-report=term-missing -q"
 
 [tool.coverage.run]
-source = ["src/lacuna"]
+source = ["src/seenery"]
 omit = ["*/__init__.py"]
