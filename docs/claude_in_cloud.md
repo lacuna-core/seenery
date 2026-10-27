@@ -41,9 +41,6 @@ The cloud session clones from GitHub, so anything not pushed is invisible to it.
 4. When done, Claude pushes to a new branch and can open a PR. Review the diff
    in the web UI.
 
-Tip: ask it to run `uv run pytest`, `uv run ruff check` and `uv run mypy`
-before finishing. Pre-commit hooks do not run in the cloud unless the setup
-script runs `uv run pre-commit install`.
 
 ### Which branch to select
 
