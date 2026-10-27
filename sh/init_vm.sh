@@ -14,9 +14,6 @@ if ! command -v uv >/dev/null; then
 fi
 uv --version
 
-uv sync --dev
-uv run pre-commit install
-
 if [[ -r /proc/meminfo ]]; then
     ram_gb=$(awk '/^MemTotal:/ {printf "%.1f", $2 / 1024 / 1024}' /proc/meminfo)
     cpus=$(nproc)
