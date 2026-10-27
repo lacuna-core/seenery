@@ -1,8 +1,20 @@
 #!/usr/bin/env bash
 # Claude cloud environment init: report available resources.
 set -euo pipefail
+set -x
+trap 'echo "init_vm.sh failed at line ${LINENO}: ${BASH_COMMAND}" >&2' ERR
 
-pip install uv && uv sync --dev
+pwd
+python3 --version || true
+cat .python-version || true
+
+if ! command -v uv >/dev/null; then
+    # --break-system-packages: Debian/Ubuntu pip refuses installs otherwise (PEP 668)
+    pip install --break-system-packages uv || python3 -m pip install --break-system-packages uv
+fi
+uv --version
+
+uv sync --dev
 uv run pre-commit install
 
 if [[ -r /proc/meminfo ]]; then
