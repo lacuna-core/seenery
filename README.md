@@ -35,12 +35,42 @@ cp .env.example .env
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `LACUNA_LOG_LEVEL` | `INFO` | Logging verbosity (`DEBUG`, `INFO`, `WARNING`, `ERROR`) |
+| `LACUNA_GOOGLE_CLIENT_SECRETS_FILE` | `client_secret.json` | Google OAuth "Desktop app" client JSON |
+| `LACUNA_GOOGLE_TOKEN_FILE` | `~/.config/seenery/google_token.json` | Cached OAuth token |
 
 ## Usage
 
 ```bash
 uv run seenery --help
 ```
+
+### Google Photos report
+
+```bash
+uv run seenery photos              # last 30 days
+uv run seenery photos --days 7
+```
+
+Output, one block per day:
+
+```
+2026-10-25
+Number of photos: 12
+Location: unavailable (first photo: IMG_1234.jpg)
+```
+
+One-time Google Cloud setup:
+
+1. Create a project in [Google Cloud Console](https://console.cloud.google.com/) and enable the **Photos Picker API**.
+2. Configure the OAuth consent screen (add yourself as a test user).
+3. Create an OAuth client of type **Desktop app**, download the JSON and save it as `client_secret.json` in the project root (or point `LACUNA_GOOGLE_CLIENT_SECRETS_FILE` at it).
+
+On first run a browser opens for Google sign-in; then the Google Photos picker opens — select the photos to report on (e.g. everything from the last 30 days) and click **Done**.
+
+Limitations of the Google Photos APIs:
+
+- Since March 2025 apps can no longer list a user's whole library; photos must be selected by the user in the picker.
+- Location (GPS) data is never exposed by the API, so `Location` is reported as unavailable.
 
 ## Development
 
@@ -66,6 +96,7 @@ uv run mypy               # strict type-check
 
 - **`config.py`** — pydantic-settings with `LACUNA_` env prefix
 - **`cli/app.py`** — Typer CLI; add sub-commands as `cli/<name>.py` and register via `app.add_typer(...)`
+- **`photos/`** — Google Photos Picker API client, OAuth and the daily report
 
 See `CLAUDE.md` for coding conventions.
 

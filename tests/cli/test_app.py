@@ -13,6 +13,6 @@ def test_help() -> None:
 def test_version() -> None:
     from seenery import __version__
 
-    result = runner.invoke(app, [])
+    result = runner.invoke(app, ["version"])
     assert result.exit_code == 0
     assert __version__ in result.output

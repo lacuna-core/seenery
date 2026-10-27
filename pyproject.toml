@@ -7,6 +7,7 @@ authors = [
 ]
 requires-python = ">=3.14"
 dependencies = [
+    "google-auth-oauthlib>=1.5.0",
     "httpx>=0.28.1",
     "loguru>=0.7.3",
     "mypy>=1.11",
@@ -66,3 +67,7 @@ addopts = "--cov=seenery --cov-report=term-missing -q"
 [tool.coverage.run]
 source = ["src/seenery"]
 omit = ["*/__init__.py"]
+
+[[tool.mypy.overrides]]
+module = ["google_auth_oauthlib.*"]
+ignore_missing_imports = true

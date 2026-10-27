@@ -26,6 +26,17 @@ uv run seenery --help                 # run the CLI
 
 - **`config.py`** — frozen `Settings` (pydantic-settings, `LACUNA_` env prefix). Calls `load_dotenv()` at import time.
 - **`cli/app.py`** — Typer CLI. Sub-command groups live in separate files (e.g. `cli/foo.py`) and are registered via `app.add_typer(...)`.
+  - `seenery photos [--days N]` — per-day photo-count report via the Google Photos Picker API.
+- **`photos/`** — Google Photos integration:
+  - `auth.py` — OAuth installed-app flow (`photospicker.mediaitems.readonly` scope); caches the token at `Settings.google_token_file`.
+  - `picker.py` — `PickerClient` (httpx) for the Picker API: create/poll/delete sessions, list picked media items.
+  - `models.py` — pydantic models for Picker API responses (camelCase aliases).
+  - `report.py` — pure `build_daily_report()` grouping picked photos by day.
+
+### Google Photos API constraints
+
+- Since 2025-03-31 the Library API can only read media created by the app itself, so reading a user's library requires the **Picker API**: the user selects photos in the Google Photos UI, then the app lists them. There is no server-side date filter; `report.py` filters by `createTime`.
+- No Google Photos API exposes GPS location (metadata omits it and `=d` downloads strip it), so the report prints `Location: unavailable`.
 
 Logging is configured once in `__init__.py`: loguru handler removed and re-added with the level from `SETTINGS.log_level`. Set `LACUNA_LOG_LEVEL=DEBUG` to see debug output.
 

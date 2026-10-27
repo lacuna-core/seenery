@@ -221,3 +221,5 @@ __marimo__/
 
 data/raw
 data/prep
+# Google OAuth client secrets
+client_secret*.json
