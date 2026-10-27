@@ -13,6 +13,7 @@ bash shell/bootstrap.sh <your-project-name>
 ## Prerequisites
 
 - [uv](https://docs.astral.sh/uv/) — Python package manager
+- [gh](https://cli.github.com/) — GitHub CLI (authenticate once with `gh auth login`)
 
 ## Install
 
